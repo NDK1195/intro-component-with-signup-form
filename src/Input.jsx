@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 function Input({
   placeholder,
   type,
@@ -10,8 +9,6 @@ function Input({
   isInputEmpty,
   isEmailInvalid,
 }) {
-  const [errorState, setErrorState] = useState(false);
-
   let errorText = "";
 
   if (isInputEmpty[name]) {
@@ -62,8 +59,13 @@ function Input({
 
 Input.propTypes = {
   handleInputChange: PropTypes.func,
+  handleInputFocus: PropTypes.func,
+  isEmailInvalid: PropTypes.bool,
+  isInputEmpty: PropTypes.object,
   name: PropTypes.string,
   placeholder: PropTypes.string,
+  type: PropTypes.string,
   value: PropTypes.string,
 };
+
 export default Input;

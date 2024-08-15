@@ -3,7 +3,7 @@ import Form from "./Form";
 function App() {
   return (
     <main className="min-h-screen bg-red">
-      <div className="bg-intro-mobile lg:bg-intro-desktop flex min-h-screen items-center justify-center bg-contain bg-center bg-no-repeat">
+      <div className="flex min-h-screen items-center justify-center bg-intro-mobile bg-contain bg-center bg-no-repeat lg:bg-intro-desktop">
         {/* container */}
         <div className="mx-6 my-16 flex flex-col items-center gap-16 text-white lg:mx-4 lg:my-0 lg:flex-row lg:gap-[45px]">
           {/* left content */}
@@ -33,6 +33,15 @@ function App() {
             {/* form */}
             <div className="rounded-[10px] bg-white p-6 text-dark-blue shadow-box lg:p-10">
               <Form />
+
+              {/* terms and services */}
+              <p className="px-4 text-center text-[11px] font-medium leading-[21px] text-grayish-blue lg:leading-[26px]">
+                By clicking the button, you are agreeing to our{" "}
+                <a href="#" className="font-bold text-red">
+                  Terms and Services
+                </a>
+              </p>
+              {/* terms and services */}
             </div>
             {/* form */}
           </div>

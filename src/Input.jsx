@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 function Input({
   placeholder,
   type,
@@ -9,23 +10,24 @@ function Input({
   isInputEmpty,
   isEmailInvalid,
 }) {
+  const [errorState, setErrorState] = useState(false);
+
   let errorText = "";
 
   if (isInputEmpty[name]) {
     errorText = `${placeholder} cannot be empty`;
   }
 
-  if (isEmailInvalid[name]) {
+  if (isEmailInvalid && name === "email") {
     errorText = "Looks like this is not an email";
   }
-  console.log(isInputEmpty[name], isEmailInvalid[name]);
 
   return (
     <div className="relative">
       {/* input */}
       <input
         type={type}
-        className={`w-full rounded-[5px] border-[1px] py-[14px] pl-[19.41px] text-sm font-semibold leading-[26px] tracking-[0.25px] text-dark-blue opacity-75 outline-none placeholder:text-dark-blue focus:border-blue focus:opacity-100 lg:pl-8 ${isInputEmpty[name] || isEmailInvalid[name] ? "border-red" : "border-[#DEDEDE]"}`}
+        className={`w-full rounded-[5px] border-[1px] py-[14px] pl-[19.41px] text-sm font-semibold leading-[26px] tracking-[0.25px] text-dark-blue opacity-75 outline-none placeholder:text-dark-blue focus:border-blue focus:opacity-100 lg:pl-8 ${isInputEmpty[name] || (isEmailInvalid && name === "email") ? "border-red" : "border-[#DEDEDE]"}`}
         placeholder={placeholder}
         name={name}
         value={value}
@@ -45,7 +47,7 @@ function Input({
         width="24"
         height="24"
         xmlns="http://www.w3.org/2000/svg"
-        className={`absolute right-7 top-4 ${isInputEmpty[name] || isEmailInvalid[name] ? "block" : "hidden"}`}
+        className={`absolute right-7 top-4 ${isInputEmpty[name] || (isEmailInvalid && name === "email") ? "block" : "hidden"}`}
       >
         <g fill="none" fillRule="evenodd">
           <circle fill="#FF7979" cx="12" cy="12" r="12" />

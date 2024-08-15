@@ -22,39 +22,35 @@ function Form() {
   function handleInputChange(event) {
     const { name, value } = event.target;
 
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   }
 
   function handleInputFocus(event) {
     const { name } = event.target;
 
-    setIsInputEmpty({ ...isInputEmpty, [name]: false });
+    setIsInputEmpty((prevState) => ({ ...prevState, [name]: false }));
+    setIsEmailInvalid(false);
   }
   function handleSubmit(event) {
     event.preventDefault();
-    const { name } = event.target;
 
     if (formData.firstName === "") {
-      setIsInputEmpty({ ...isInputEmpty, firstName: true });
+      setIsInputEmpty((prevState) => ({ ...prevState, firstName: true }));
     }
     if (formData.lastName === "") {
-      setIsInputEmpty({ ...isInputEmpty, lastName: true });
-    }
-    if (formData.email === "") {
-      setIsInputEmpty({ ...isInputEmpty, email: true });
+      setIsInputEmpty((prevState) => ({ ...prevState, lastName: true }));
     }
     if (formData.password === "") {
-      setIsInputEmpty({ ...isInputEmpty, password: true });
+      setIsInputEmpty((prevState) => ({ ...prevState, password: true }));
     }
 
-    if (!emailRegex.test(formData.email)) {
-      setIsEmailInvalid(true);
+    if (formData.email !== "") {
+      if (!emailRegex.test(formData.email)) {
+        setIsEmailInvalid(true);
+      }
+    } else {
+      setIsInputEmpty((prevState) => ({ ...prevState, email: true }));
     }
-
-    console.log("🚀 ~ Form ~ isInputEmpty:", isInputEmpty);
-
-    console.log("🚀 ~ Form ~ formData:", formData);
-    setFormData({ ...formData, [name]: "" });
   }
 
   return (
@@ -113,20 +109,11 @@ function Form() {
       {/* submit button */}
       <button
         type="submit"
-        className="shadow-button bg mb-2 w-full rounded-[5px] bg-green py-[15px] text-[15px] font-semibold uppercase leading-[26px] tracking-[1px] text-white transition-colors hover:bg-[#77E2B3]"
+        className="bg mb-2 w-full rounded-[5px] bg-green py-[15px] text-[15px] font-semibold uppercase leading-[26px] tracking-[1px] text-white shadow-button transition-colors hover:bg-[#77E2B3]"
       >
         Claim your free trial
       </button>
       {/* submit button */}
-
-      {/* terms and services */}
-      <p className="px-4 text-center text-[11px] font-medium leading-[21px] text-grayish-blue lg:leading-[26px]">
-        By clicking the button, you are agreeing to our{" "}
-        <a href="#" className="font-bold text-red">
-          Terms and Services
-        </a>
-      </p>
-      {/* terms and services */}
     </form>
   );
 }
